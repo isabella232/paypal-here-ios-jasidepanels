@@ -439,10 +439,16 @@ static char ja_kvoContext;
                 buttonController = [nav.viewControllers objectAtIndex:0];
             }
         }
-        if (!buttonController.navigationItem.leftBarButtonItem) {   
-            buttonController.navigationItem.leftBarButtonItem = [self leftButtonForCenterPanel];
+
+        if (!buttonController.navigationItem.leftBarButtonItem) {
+            UIBarButtonItem *placeHolderBarButtonItem = [UIBarButtonItem new];
+            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                buttonController.navigationItem.leftBarButtonItem = [self leftButtonForCenterPanel];
+            } else {
+                buttonController.navigationItem.leftBarButtonItems = @[placeHolderBarButtonItem, [self leftButtonForCenterPanel]];
+            }
         }
-    }	
+    }
 }
 
 #pragma mark - Gesture Recognizer Delegate
